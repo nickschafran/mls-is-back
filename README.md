@@ -12,9 +12,8 @@ Instructions
 ------------
 Everything to run the script and reproduce the output is available in the repo
 except for the FiveThirtyEight data, which can be found 
-[here](https://data.fivethirtyeight.com/#soccer-spi). 
-
-For practice, it's implemented in both python and R.
+[here](https://data.fivethirtyeight.com/#soccer-spi). For practice, I 
+implemented it in both python and R.
 
 You can run the python script from the command line by running 
 `$ python mls_is_back.py`. It will also write the results to a file named
