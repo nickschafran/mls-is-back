@@ -12,7 +12,7 @@ Instructions
 ------------
 Everything to run the script and reproduce the output is available in the repo
 except for the FiveThirtyEight data, which can be found 
-[here:](https://data.fivethirtyeight.com/#soccer-spi). 
+[here](https://data.fivethirtyeight.com/#soccer-spi). 
 
 You can run the script from the command line by running 
 `$ R < mls_is_back.R --no-save`. It will write the results to a file named
