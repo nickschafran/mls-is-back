@@ -1,8 +1,8 @@
 MLS is Back Predictions
 =======================
 
-This is an R script to generate predictions for who will win the group stage
-of the [MLS is Back](https://www.mlssoccer.com/mls-is-back-tournament)
+This repo contains scripts to generate predictions for who will win the group 
+stage of the [MLS is Back](https://www.mlssoccer.com/mls-is-back-tournament)
 tournament using 
 [FiveThirtyEight's Global Club Soccer Rankings](https://projects.fivethirtyeight.com/global-club-soccer-rankings/).
 More details on the tournament can be found 
