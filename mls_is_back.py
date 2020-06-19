@@ -15,9 +15,9 @@ def get_groups(filename):
     return groups
 
 
-def transform_spi(groups, mls):
+def transform_spi(groups, spi):
     """Filter SPI data to MLS & suppplement with group data."""
-    df = pd.read_csv(mls)
+    df = pd.read_csv(spi)
     mls = df.loc[df['league'] == 'Major League Soccer']
     mls['group'] = mls['name'].map(lambda x: groups[x.upper()])
     averages = mls.groupby(by=['group']).mean()
