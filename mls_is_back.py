@@ -23,8 +23,9 @@ def transform_spi(groups, spi):
 
 def predict_mls_is_back(mls):
     """Pick top two from each group and add next four best teams."""
-    top_twelve = mls.groupby(['group']).apply(lambda x: x.nlargest(2, columns='diff'))
-    next_four = mls.groupby(['group']).apply(lambda x: x.nlargest(3, columns='diff')[-1:]).nlargest(4, ['diff'])
+    groups = mls.groupby(['group'])
+    top_twelve = groups.apply(lambda x: x.nlargest(2, columns='diff'))
+    next_four = groups.apply(lambda x: x.nlargest(3, columns='diff')[-1:]).nlargest(4, ['diff'])
     return pd.concat([top_twelve, next_four])
 
 
