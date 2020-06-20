@@ -5,14 +5,9 @@ import pandas as pd
 
 def get_groups(filename):
     """Create lookup where each key is a team and each value is a group."""
-    groups = {}
-    with open(filename) as f:
+    with open('groups.csv') as f:
         reader = csv.DictReader(f)
-        for row in reader:
-            for k in row:
-                if row[k] != '':
-                    groups[row[k]] = k
-    return groups
+        return {row[k]: k for row in reader for k in row if row[k] != ''}
 
 
 def transform_spi(groups, spi):
