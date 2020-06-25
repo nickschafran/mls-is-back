@@ -28,8 +28,8 @@ def predict_mls_is_back(mls):
 
     # updated rule: top three from group a advance
     group_a = mls.loc[mls['group'] == 'A']
-    three = group_a.groupby(['group']).apply(lambda x: x.nlargest(3, columns='diff'))[2:3]
-    top_thirteen = pd.concat([top_twelve, three])
+    third = group_a.groupby(['group']).apply(lambda x: x.nlargest(3, columns='diff'))[2:3]
+    top_thirteen = pd.concat([top_twelve, third])
 
     # next best three also qualify
     thirteen_names = top_thirteen.to_dict('l')['name']
