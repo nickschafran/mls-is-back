@@ -27,14 +27,15 @@ def predict_mls_is_back(mls):
     top_twelve = groups.apply(lambda x: x.nlargest(2, columns='diff'))
 
     # updated rule: top three from group a advance
-    group_a = mls.loc[mls['group'] == 'A']
-    third = group_a.groupby(['group']).apply(lambda x: x.nlargest(3, columns='diff'))[2:3]
+    group_a = mls.loc[mls['group'] == 'A'].groupby(['group'])
+    third = group_a.apply(lambda x: x.nlargest(3, columns='diff'))[2:3]
     top_thirteen = pd.concat([top_twelve, third])
 
     # next best three also qualify
-    thirteen_names = top_thirteen.to_dict('l')['name']
-    remaining_teams = mls[~mls['name'].isin(thirteen_names)].dropna()
-    next_three = remaining_teams.groupby(['group']).apply(lambda x: x.nlargest(1, columns='diff')).nlargest(3, ['diff'])
+    qualified = top_thirteen.to_dict('l')['name']
+    rem_teams = mls[~mls['name'].isin(qualified)].dropna().groupby(['group'])
+    runners_up = rem_teams.apply(lambda x: x.nlargest(1, columns='diff'))
+    next_three = runners_up.nlargest(3, ['diff'])
 
     return pd.concat([top_thirteen, next_three])
 
@@ -47,5 +48,5 @@ def main(groups_file, mls_file):
 
 
 if __name__ == '__main__':
-    mls_is_back = main('groups.csv', 'soccer-spi/spi_global_rankings.csv')
-    mls_is_back.to_csv('mls_is_back.csv')
+    df = main('groups.csv', 'soccer-spi/spi_global_rankings.csv')
+    df.to_csv('mls_is_back.csv')
