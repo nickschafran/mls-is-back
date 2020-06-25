@@ -22,15 +22,21 @@ def transform_spi(groups, filename):
 
 
 def predict_mls_is_back(mls):
-    """Pick top two from each group and add next four best teams."""
+    """Pick top two/three from each group and add next three best teams."""
     groups = mls.groupby(['group'])
-    top_twelve = groups.apply(
-        lambda x: x.nlargest(2, columns='diff')
-    )
-    next_four = groups.apply(
-        lambda x: x.nlargest(3, columns='diff')[-1:]
-    ).nlargest(4, ['diff'])
-    return pd.concat([top_twelve, next_four])
+    top_twelve = groups.apply(lambda x: x.nlargest(2, columns='diff'))
+
+    # updated rule: top three from group a advance
+    group_a = mls.loc[mls['group'] == 'A']
+    three = group_a.groupby(['group']).apply(lambda x: x.nlargest(3, columns='diff'))[2:3]
+    top_thirteen = pd.concat([top_twelve, three])
+
+    # next best three also qualify
+    thirteen_names = top_thirteen.to_dict('l')['name']
+    remaining_teams = mls[~mls['name'].isin(thirteen_names)].dropna()
+    next_three = remaining_teams.groupby(['group']).apply(lambda x: x.nlargest(1, columns='diff')).nlargest(3, ['diff'])
+
+    return pd.concat([top_thirteen, next_three])
 
 
 def main(groups_file, mls_file):
