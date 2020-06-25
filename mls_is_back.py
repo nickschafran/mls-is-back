@@ -43,8 +43,9 @@ def main(groups_file, mls_file):
     groups = get_groups(groups_file)
     mls = transform_spi(groups, mls_file)
     mls_is_back = predict_mls_is_back(mls)
-    mls_is_back.to_csv('mls_is_back.csv')
+    return mls_is_back
 
 
 if __name__ == '__main__':
-    main('groups.csv', 'soccer-spi/spi_global_rankings.csv')
+    mls_is_back = main('groups.csv', 'soccer-spi/spi_global_rankings.csv')
+    mls_is_back.to_csv('mls_is_back.csv')
